@@ -33,6 +33,10 @@ docs/
 po/*~
 # RStudio Connect folder
 rsconnect/
+<<<<<<< HEAD
 
 # Ignoramos el archivo rpoyect
 clase-curso-bulnes2.Rproj
+=======
+clase-curso-bulnes2_1.Rproj
+>>>>>>> 1ab7157fb79b7e63c17a2eb8c4f800947585b717
