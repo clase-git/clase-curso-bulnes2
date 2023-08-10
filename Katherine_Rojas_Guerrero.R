@@ -52,6 +52,7 @@ cat("Coeficiente de variación (caso con mean igual a cero) del vector 3:", cv3,
 # VERIFICANDO
 sd(vector2, na.rm = TRUE)/mean(vector2, na.rm =TRUE)
 
+
 # Ejercicio 2 -------------------------------------------------------------
 
 
