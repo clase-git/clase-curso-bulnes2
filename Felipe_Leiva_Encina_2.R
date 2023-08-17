@@ -33,7 +33,7 @@ plot_table <- function(table, x_var, y_var, titulo_var){
 plot_with_purrr <- function(tablas){
   
   plots <- tablas %>% 
-    purrr::map(~sum_something(.x, continent, pop)) %>%                                                            # .x representa a cada elemento del objeto table
+    purrr::map(~sum_something(.x, continent, pop)) %>%                                                            # .x representa a cada elemento del objeto tablas
     purrr::imap(.f = ~mutate(., year =!!rlang::parse_expr(.y))) %>%                                               # .y representa el indice de c/u de los elementos procesados previamente
     purrr::map(~plot_table(.x, continent, n, paste0("Población mundial, según continente. Año ",.x$year[1],"."))) # .x representa a cada elemento dentro de las lineas de código procesadas previamente
 
