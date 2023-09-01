@@ -9,7 +9,7 @@ casen = read_feather("casen_2020_edit.feather")
 casen_vivienda <- casen %>% 
   select_if(str_detect(names(.), "^o\\d"))
 
-casen_ocupaci?n <- casen %>% 
+casen_ocupacion <- casen %>% 
   select_if(str_detect(names(.), "^v\\d"))
 
 # Parte 2
