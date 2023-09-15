@@ -126,9 +126,8 @@ map(names(esis), function(v) mean(esi$ing_t_p[esi$version %in% v]*
 results4_1 <- microbenchmark(
   map.test = map(names(esis), function(v) mean(esi$ing_t_p[esi$version %in% v]*
                                                  esi$fact_cal_esi[esi$version %in% v])),
-  times = 5)
+  times = 50)
 
-results4_1
 
 # benchmark 4.2 ------
 
@@ -140,9 +139,8 @@ results4_2 <- microbenchmark(
   pipe.test = esi %>% 
     group_by(version) %>%
     summarise(media = mean(ing_t_p*fact_cal_esi)),
-  times = 5)
+  times = 50)
 
-results4_2
 
 # benchmark 4.3 ------
 
@@ -152,9 +150,8 @@ map(names(esis), mean_dt)
 
 results4_3 <- microbenchmark(
   purrr.datatable.test = map(names(esis), mean_dt),
-  times = 5)
+  times = 50)
 
-results4_3
 
 # benchmark 4.4 ------
 
@@ -162,6 +159,16 @@ esi_dt[,mean(ing_t_p*fact_cal_esi), by = version]
 
 results4_4 <- microbenchmark(
   datatable.test = esi_dt[,mean(ing_t_p*fact_cal_esi), by = version],
-  times = 5)
+  times = 50)
 
+# comparacion -----
+
+results4_1
+results4_2
+results4_3
 results4_4
+
+
+'Los resultados son algo inestables pero tiende a dar que la opción de data.table
+es la más rapida. Se aumentan las repeticiones a 50 para obtener una métrica más
+robusta. Se confirma con esto que la cuarta alternativa con data.table es la más rapida.'
