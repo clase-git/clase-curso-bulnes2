@@ -2,6 +2,7 @@ library(dplyr)
 library(purrr)
 library(readr)
 library(tidyverse)
+library(microbenchmark)
 base_encuesta<-read.csv2("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Ultima clase\\data_reportería\\data\\ene-2022-01-def.csv")
 esi_2016<-read.csv("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\esi-2016---personas.csv")
 esi_2017<-read.csv("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\esi-2017---personas.csv")
@@ -9,7 +10,7 @@ esi_2018<-read.csv("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Pe
 esi_2019<-read.csv("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\esi-2019---personas.csv")
 esi_2020<-read.csv("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\esi-2020---personas.csv")
 esi_2021<-read.csv("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\esi-2021---personas.csv")
-source("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\functions.R")
+source("C:\\Users\\caper\\OneDrive\\Escritorio\\Curso R\\Cristian_Perez_Faundez\\Cristian_Perez_Faundez\\functions.R")
 
 #Ejercicio 1
 
@@ -87,3 +88,19 @@ esi_facto_ingresos<-esi_tabla %>%
   group_by(version) %>% 
   summarise(minimo=min(ing_t_p),maximo=max(ing_t_p),median(ing_t_p),p10=quantile(ing_t_p,probs = 0.10),
             p90=quantile(ing_t_p,probs = 0.90))
+
+#Ejercicio 4
+
+# Calcular el promedio utilizando purrr
+promedio_purrr <- microbenchmark(reduce(esi_tabla$ing_t_p, `+`) / length(esi_tabla$ing_t_p),times=13)
+promedio_purrr
+
+# Calcular promedio con group_by() %>% summarise()
+funcion_promedio_group<-function(base){
+  promedio<-base %>% 
+    group_by(version) %>% 
+    summarise(promedio=mean(ing_t_p))
+}
+
+promedio_groupny<-microbenchmark(funcion_promedio_group(esi_tabla),times = 13)
+promedio_groupny
